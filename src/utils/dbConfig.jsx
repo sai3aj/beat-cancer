@@ -2,6 +2,6 @@ import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema";
 const sql = neon(
-  "postgresql://finan-smart_owner:uk3aed9QZotj@ep-wispy-breeze-a5iadk8t.us-east-2.aws.neon.tech/beat-cancer?sslmode=require"
+  "postgresql://MedAnalyzr_owner:Ypm2gEQAMnj9@ep-soft-king-a1nrtis2.ap-southeast-1.aws.neon.tech/MedAnalyzr?sslmode=require"
 );
 export const db = drizzle(sql, { schema });

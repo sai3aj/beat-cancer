@@ -12,12 +12,16 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('Auth State:', { user, authenticated, ready });
+
     if (ready && !authenticated) {
+      console.log('Triggering login...');
       login();
-    } else if (user && !currentUser) {
+    } else if (authenticated && user) {
+      console.log('Redirecting to onboarding...');
       navigate("/onboarding");
     }
-  }, [user, authenticated, ready, login, currentUser, navigate]);
+  }, [user, authenticated, ready, login, navigate]);
 
   return (
     <div className="sm:-8 relative flex min-h-screen flex-row bg-[#13131a] p-4">

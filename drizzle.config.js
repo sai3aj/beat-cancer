@@ -3,8 +3,8 @@ export default {
   schema: "./src/utils/schema.jsx",
   out: "./drizzle",
   dbCredentials: {
-    url: "postgresql://finan-smart_owner:uk3aed9QZotj@ep-wispy-breeze-a5iadk8t.us-east-2.aws.neon.tech/beat-cancer?sslmode=require",
+    url: "postgresql://MedAnalyzr_owner:Ypm2gEQAMnj9@ep-soft-king-a1nrtis2.ap-southeast-1.aws.neon.tech/MedAnalyzr?sslmode=require",
     connectionString:
-      "postgresql://finan-smart_owner:uk3aed9QZotj@ep-wispy-breeze-a5iadk8t.us-east-2.aws.neon.tech/beat-cancer?sslmode=require",
+      "postgresql://MedAnalyzr_owner:Ypm2gEQAMnj9@ep-soft-king-a1nrtis2.ap-southeast-1.aws.neon.tech/MedAnalyzr?sslmode=require",
   },
 };
