@@ -18,3 +18,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   filter: invert(0.8);
 }
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 8s linear infinite;
+}
+
+.animate-tilt {
+  animation: tilt 10s infinite linear;
+}
+
+@keyframes tilt {
+  0%, 50%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+}

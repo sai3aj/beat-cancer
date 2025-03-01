@@ -5,23 +5,51 @@ import { Home, Profile, Onboarding } from "./pages";
 import MedicalRecords from "./pages/records/index";
 import ScreeningSchedule from "./pages/ScreeningSchedule";
 import SingleRecordDetails from "./pages/records/single-record-details";
+import { usePrivy } from "@privy-io/react-auth";
 import { useStateContext } from "./context";
 
 const App = () => {
-  const { user, authenticated, ready, login, currentUser } = useStateContext();
+  const { ready, authenticated, user } = usePrivy();
+  const { checkUserExists } = useStateContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Auth State:', { user, authenticated, ready });
+    let mounted = true;
 
-    if (ready && !authenticated) {
-      console.log('Triggering login...');
-      login();
-    } else if (authenticated && user) {
-      console.log('Redirecting to onboarding...');
-      navigate("/onboarding");
-    }
-  }, [user, authenticated, ready, login, navigate]);
+    const checkAndRedirect = async () => {
+      console.log('Checking auth state:', { ready, authenticated, user });
+
+      if (ready && authenticated && user?.email?.address) {
+        try {
+          const userExists = await checkUserExists(user.email.address);
+          if (userExists === undefined) {
+            console.error('Error checking user existence');
+            return;
+          }
+          console.log('User exists check:', userExists);
+
+          if (!userExists) {
+            console.log('Email not found in database, redirecting to onboarding...');
+            navigate("/onboarding");
+          } else {
+            console.log('User found in database, proceeding normally...');
+          }
+        } catch (error) {
+          console.error('Error checking user:', error);
+        }
+      }
+    };
+
+    checkAndRedirect();
+
+    return () => {
+      mounted = false;
+    };
+  }, [ready, authenticated, user, checkUserExists, navigate]);
+
+  if (!ready) {
+    return null; // or a loading spinner
+  }
 
   return (
     <div className="sm:-8 relative flex min-h-screen flex-row bg-[#13131a] p-4">

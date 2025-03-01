@@ -93,9 +93,27 @@ export const StateContextProvider = ({ children }) => {
         .set(dataToUpdate)
         .where(eq(Records.id, documentID))
         .returning();
+      return updatedRecords[0];
     } catch (error) {
       console.error("Error updating record:", error);
       return null;
+    }
+  }, []);
+
+  // Add this new function
+  const deleteRecord = useCallback(async (recordId) => {
+    try {
+      await db
+        .delete(Records)
+        .where(eq(Records.id, recordId))
+        .execute();
+      
+      // Update the local state by filtering out the deleted record
+      setRecords((prevRecords) => prevRecords.filter(record => record.id !== recordId));
+      return true;
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      return false;
     }
   }, []);
 
@@ -111,6 +129,7 @@ export const StateContextProvider = ({ children }) => {
         createRecord,
         currentUser,
         updateRecord,
+        deleteRecord,
       }}
     >
       {children}

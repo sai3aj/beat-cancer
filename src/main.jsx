@@ -6,6 +6,7 @@ import { StateContextProvider } from "./context";
 import App from "./App";
 import "./index.css";
 import { PrivyProvider } from "@privy-io/react-auth";
+import ErrorBoundary from './components/ErrorBoundary';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -22,9 +23,11 @@ root.render(
     }}
   >
     <Router>
-      <StateContextProvider>
-        <App />
-      </StateContextProvider>
+      <ErrorBoundary>
+        <StateContextProvider>
+          <App />
+        </StateContextProvider>
+      </ErrorBoundary>
     </Router>
   </PrivyProvider>,
 );
